@@ -15,6 +15,7 @@ import {
   import {scale} from 'react-native-size-matters';
   import {appIcons} from '../../services/utilities/Assets';
   import {AppStyles} from '../../services/utilities/AppStyles';
+import { Colors } from '../../services/utilities/Colors';
   
   const InputField = props => {
     const [secureTextEntry, setSecureTextEntry] = useState(true);
@@ -119,7 +120,7 @@ import {
     },
     label: {
       fontSize: fontSize.lebal,
-      color: "#000000",
+      color:Colors.lebal
     },
     right: {
       width: '10%',
@@ -130,7 +131,7 @@ import {
     inputContainer: {
       height: responsiveHeight(6.7),
       marginTop: responsiveHeight(1),
-      backgroundColor: "#FFFFFF",
+      backgroundColor: Colors.fieldBackground,
       borderRadius: scale(10),
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -145,10 +146,10 @@ import {
     passwordIcon2: {
       width: scale(20),
       height: scale(15),
-      backgroundColor: 'white',
+      backgroundColor: Colors.lebal,
     },
     username: {
-      color: "#000000",
+      color: Colors.blackText,
       fontSize: fontSize.userName,
     },
   });

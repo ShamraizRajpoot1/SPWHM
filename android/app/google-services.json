@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "236857291657",
+    "project_id": "smartplant-83bb6",
+    "storage_bucket": "smartplant-83bb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236857291657:android:d9c851d5d76574f632e758",
+        "android_client_info": {
+          "package_name": "com.spwhm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALHcB2_7t17xGVlaPShQ3YyKK9xjl2rQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

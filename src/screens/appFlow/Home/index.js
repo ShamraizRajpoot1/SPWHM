@@ -7,9 +7,10 @@ import {
   ScrollView,
   Image,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {AppStyles} from '../../../services/utilities/AppStyles';
 import {
   responsiveFontSize,
@@ -19,57 +20,64 @@ import {
 import {appIcons, appImages} from '../../../services/utilities/Assets';
 import {scale} from 'react-native-size-matters';
 import SearchBar from '../../../components/SearchBar';
-import { fontSize } from '../../../services/utilities/Fonts';
+import {fontSize} from '../../../services/utilities/Fonts';
+import Header from '../../../components/Header';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const initialData = [
-    { id: '1', plantImage: appImages.item1, name: 'Safron Crocus' ,location:'Pasrur'},
-    { id: '2', plantImage: appImages.item2 , name: 'Venila Orchard', location:'Sialkot'},
+    {
+      id: '1',
+      plantImage: appImages.item1,
+      name: 'Safron Crocus',
+      location: 'Pasrur',
+    },
+    {
+      id: '2',
+      plantImage: appImages.item2,
+      name: 'Venila Orchard',
+      location: 'Sialkot',
+    },
   ];
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState(initialData);
 
-  const handleSearch = (query) => {
+  const handleSearch = query => {
     setSearchQuery(query);
 
     if (query.trim() === '') {
       setFilteredData(initialData);
     } else {
-      const filtered = initialData.filter((item) =>
-        item.name.toLowerCase().includes(query.toLowerCase())
+      const filtered = initialData.filter(item =>
+        item.name.toLowerCase().includes(query.toLowerCase()),
       );
       setFilteredData(filtered);
     }
   };
-  
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+
+  const Info = () =>{
+    navigation.navigate('PlantInfo');
+  }
+  const renderItem = ({item}) => (
+    <TouchableOpacity style={styles.itemContainer} onPress={Info}>
       <View style={styles.plantrow}>
-      <Image source={item.plantImage} style={styles.image} />
-      <View style={styles.nameContainer}>
-      <Text style={[styles.name,{fontWeight:'bold'}]}>{item.name}</Text>
-      <Text style={styles.name}>{item.location}</Text>
-      </View>
+        <Image source={item.plantImage} style={styles.image} />
+        <View style={styles.nameContainer}>
+          <Text style={[styles.name, {fontWeight: 'bold'}]}>{item.name}</Text>
+          <Text style={styles.name}>{item.location}</Text>
+        </View>
       </View>
       <Image source={appIcons.arrow} style={styles.iconright} />
     </TouchableOpacity>
   );
+  const drawer = () =>{
+    navigation.openDrawer()
+  }
   return (
-    <>
-      <View style={styles.head}>
-        <View>
-          <Image
-            style={{width: scale(60), height: scale(30)}}
-            source={appImages.logo}
-          />
-        </View>
-        <View style={styles.row2}>
-          <Image source={appIcons.add} style={styles.icon} />
-          <Image source={appIcons.user} style={styles.icon} />
-        </View>
-      </View>
+    <ImageBackground style={{flex: 1}} source={appImages.background}>
+      <Header menu={true} onPress={drawer} />
+     
       <View>
-      <SearchBar onChangeText={handleSearch} value={searchQuery} />
+        <SearchBar onChangeText={handleSearch} value={searchQuery} />
       </View>
       <KeyboardAvoidingView
         style={{flex: 1}}
@@ -81,17 +89,18 @@ const Home = () => {
             style={{flex: 1}}
             contentContainerStyle={[AppStyles.contentContainer]}
             keyboardShouldPersistTaps="handled">
-              <View style={styles.listContainer}>
-            <FlatList
-      data={filteredData}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
-    </View>
+            <View style={styles.listContainer}>
+              <FlatList
+                data={filteredData}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                scrollEnabled={false} 
+              />
+            </View>
           </ScrollView>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-    </>
+    </ImageBackground>
   );
 };
 
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flexDirection: 'row',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: responsiveScreenWidth(3),
     borderBottomWidth: scale(1),
@@ -129,24 +138,26 @@ const styles = StyleSheet.create({
     borderRadius: scale(6),
   },
   name: {
-    fontSize:fontSize.lebal,
-    color:'#000000'
+    fontSize: fontSize.lebal,
+    color: '#fff',
   },
-  iconright:{
-    width:scale(10),
-    height:scale(15)
+  iconright: {
+    width: scale(10),
+    height: scale(15),
+    tintColor: '#FFFFFF',
   },
-  plantrow:{
-    flexDirection:'row',
-    alignItems:'center'
+  plantrow: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  nameContainer:{
-    marginLeft: responsiveScreenWidth(5) ,
+  nameContainer: {
+    marginLeft: responsiveScreenWidth(5),
   },
-  listContainer:{
-    borderWidth:responsiveScreenWidth(0.1),
+  listContainer: {
+    borderWidth: responsiveScreenWidth(0.1),
     margin: responsiveScreenWidth(3),
     borderRadius: scale(10),
-    borderColor: '#000',
+    borderColor: '#FFFFFF',
+    paddingBottom: responsiveScreenHeight(8),
   },
 });

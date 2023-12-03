@@ -13,6 +13,9 @@ const SignUp = ({navigation}) => {
   const Login = () =>{
     navigation.navigate('Login')
      }
+     const Signup =()=>{
+      navigation.navigate('DrawerNavigation',{screen:'Home'})
+     }
   return (
     <View style={styles.container}>
       <Text style={styles.lebal}>SignUp</Text>
@@ -20,7 +23,7 @@ const SignUp = ({navigation}) => {
       <InputField lebal={'Password'} secureTextEntry={true} />
       <InputField lebal={'Confirm Password'} secureTextEntry={true} />
       <View style={styles.btnContainer}>
-        <Button text={'SignUp'} />
+        <Button text={'SignUp'} onPress={Signup}/>
       </View>
       <View
         style={[styles.btnContainer, {marginTop: responsiveScreenHeight(15)}]}>
